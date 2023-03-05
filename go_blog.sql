@@ -1,166 +1,88 @@
--- phpMyAdmin SQL Dump
--- version 5.2.0
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Generation Time: Mar 05, 2023 at 01:41 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+/*
+ Navicat Premium Data Transfer
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+ Source Server         : localhost_3306
+ Source Server Type    : MySQL
+ Source Server Version : 80027
+ Source Host           : localhost:3306
+ Source Schema         : go_blog
 
+ Target Server Type    : MySQL
+ Target Server Version : 80027
+ File Encoding         : 65001
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+ Date: 05/03/2023 19:06:13
+*/
 
---
--- Database: `go_blog`
---
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Table structure for blog_article
+-- ----------------------------
+DROP TABLE IF EXISTS `blog_article`;
+CREATE TABLE `blog_article`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `view_count` int NOT NULL,
+  `like_count` int NOT NULL,
+  `is_top` tinyint NOT NULL,
+  `status` tinyint NOT NULL,
+  `created_at` datetime(3) NULL DEFAULT NULL,
+  `updated_at` datetime(3) NULL DEFAULT NULL,
+  `deleted_at` datetime(3) NULL DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章表' ROW_FORMAT = Dynamic;
 
---
--- Table structure for table `blog_article`
---
+-- ----------------------------
+-- Table structure for blog_article_category
+-- ----------------------------
+DROP TABLE IF EXISTS `blog_article_category`;
+CREATE TABLE `blog_article_category`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `article_id` int NOT NULL,
+  `category_id` int NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `article_id`(`article_id`) USING BTREE,
+  INDEX `category_id`(`category_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
-CREATE TABLE `blog_article` (
-  `ID` int(64) NOT NULL,
-  `title` varchar(64) NOT NULL,
-  `content` text NOT NULL,
-  `view` int(64) NOT NULL,
-  `like` int(64) NOT NULL,
-  `top` int(8) NOT NULL,
-  `status` int(8) NOT NULL,
-  `created_at` datetime(3) DEFAULT NULL,
-  `updated_at` datetime(3) DEFAULT NULL,
-  `deleted_at` datetime(3) DEFAULT NULL,
-  `note` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- ----------------------------
+-- Table structure for blog_category
+-- ----------------------------
+DROP TABLE IF EXISTS `blog_category`;
+CREATE TABLE `blog_category`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `category_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `sort` int NOT NULL,
+  `status` tinyint NOT NULL,
+  `created_at` datetime(3) NULL DEFAULT NULL,
+  `updated_at` datetime(3) NULL DEFAULT NULL,
+  `deleted_at` datetime(3) NULL DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Table structure for blog_user
+-- ----------------------------
+DROP TABLE IF EXISTS `blog_user`;
+CREATE TABLE `blog_user`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nickname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `mail` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `gender` tinyint NOT NULL COMMENT '用户性别（0未知，1男，2女）',
+  `status` tinyint NOT NULL COMMENT '账户状态（0启用，1禁用）',
+  `created_at` datetime(3) NULL DEFAULT NULL,
+  `updated_at` datetime(3) NULL DEFAULT NULL,
+  `deleted_at` datetime(3) NULL DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
---
--- Table structure for table `blog_article_category`
---
-
-CREATE TABLE `blog_article_category` (
-  `ID` int(64) NOT NULL,
-  `article_id` int(64) NOT NULL,
-  `category_id` int(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `blog_category`
---
-
-CREATE TABLE `blog_category` (
-  `ID` int(64) NOT NULL,
-  `category` varchar(64) NOT NULL,
-  `sort` varchar(64) NOT NULL,
-  `status` int(8) NOT NULL,
-  `created_at` datetime(3) DEFAULT NULL,
-  `updated_at` datetime(3) DEFAULT NULL,
-  `deleted_at` datetime(3) DEFAULT NULL,
-  `note` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `blog_user`
---
-
-CREATE TABLE `blog_user` (
-  `ID` int(64) NOT NULL,
-  `user_name` varchar(64) NOT NULL,
-  `mail` varchar(64) NOT NULL,
-  `phone` varchar(64) NOT NULL,
-  `password` varchar(64) NOT NULL,
-  `gender` varchar(16) NOT NULL,
-  `status` int(8) NOT NULL,
-  `created_at` datetime(3) DEFAULT NULL,
-  `updated_at` datetime(3) DEFAULT NULL,
-  `deleted_at` datetime(3) DEFAULT NULL,
-  `note` text NOT NULL,
-  `nickname` varchar(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `blog_article`
---
-ALTER TABLE `blog_article`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `blog_article_category`
---
-ALTER TABLE `blog_article_category`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `article_id` (`article_id`),
-  ADD KEY `category_id` (`category_id`);
-
---
--- Indexes for table `blog_category`
---
-ALTER TABLE `blog_category`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `blog_user`
---
-ALTER TABLE `blog_user`
-  ADD PRIMARY KEY (`ID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `blog_article`
---
-ALTER TABLE `blog_article`
-  MODIFY `ID` int(64) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `blog_article_category`
---
-ALTER TABLE `blog_article_category`
-  MODIFY `ID` int(64) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `blog_category`
---
-ALTER TABLE `blog_category`
-  MODIFY `ID` int(64) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `blog_user`
---
-ALTER TABLE `blog_user`
-  MODIFY `ID` int(64) NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `blog_article_category`
---
-ALTER TABLE `blog_article_category`
-  ADD CONSTRAINT `blog_article_category_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `blog_article` (`ID`),
-  ADD CONSTRAINT `blog_article_category_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `blog_category` (`ID`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET FOREIGN_KEY_CHECKS = 1;
