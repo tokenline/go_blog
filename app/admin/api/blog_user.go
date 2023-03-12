@@ -10,7 +10,7 @@ import (
 
 type BlogUserApi struct{}
 
-func (*BlogUserApi) Query(c *gin.Context) {
+func (b *BlogUserApi) Query(c *gin.Context) {
 
 	// c.JSON(http.StatusOK, gin.H{
 	// 	"message": "1231231",
@@ -19,7 +19,7 @@ func (*BlogUserApi) Query(c *gin.Context) {
 }
 
 // 添加用户
-func (*BlogUserApi) Add(c *gin.Context) {
+func (b *BlogUserApi) Add(c *gin.Context) {
 	// 传入参数
 	var addDto dto.BlogUserAddDto
 	// 请求参数赋值到结构体中
@@ -33,7 +33,7 @@ func (*BlogUserApi) Add(c *gin.Context) {
 }
 
 // 更新用户
-func (BlogUserApi) Update(c *gin.Context) {
+func (b *BlogUserApi) Update(c *gin.Context) {
 	var updateDto dto.BlogUserUpdateDto
 	c.ShouldBind(&updateDto)
 
