@@ -28,3 +28,20 @@ func (*BlogUserService) Add(addDto dto.BlogUserAddDto) error {
 	// }
 	return err
 }
+
+// 更新用户信息
+func (*BlogUserService) Update(updateDto dto.BlogUserUpdateDto) error {
+
+	var user = &model.BlogUser{}
+
+	err := global.DB.Model(&user).Where("id = ?", updateDto.ID).Updates(map[string]interface{}{
+		"nickname": updateDto.Nickname,
+		"mail":     updateDto.Mail,
+		"phone":    updateDto.Phone,
+		"gender":   updateDto.Gender,
+		"status":   updateDto.Status,
+		"remark":   updateDto.Remark,
+	}).Error
+
+	return err
+}
