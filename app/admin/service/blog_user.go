@@ -9,7 +9,7 @@ import (
 type BlogUserService struct{}
 
 // 添加用户
-func (*BlogUserService) Add(addDto dto.BlogUserAddDto) error {
+func (b *BlogUserService) Add(addDto dto.BlogUserAddDto) error {
 
 	var user = &model.BlogUser{
 		Username: addDto.Username,
@@ -30,7 +30,7 @@ func (*BlogUserService) Add(addDto dto.BlogUserAddDto) error {
 }
 
 // 更新用户信息
-func (*BlogUserService) Update(updateDto dto.BlogUserUpdateDto) error {
+func (b *BlogUserService) Update(updateDto dto.BlogUserUpdateDto) error {
 
 	var user = &model.BlogUser{}
 
