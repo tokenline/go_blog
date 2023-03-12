@@ -31,3 +31,5 @@ func (*BlogUserApi) Add(c *gin.Context) {
 	// 返回结果
 	response.Complete(nil, err, c)
 }
+
+func (BlogUserApi) Query(c *gin.Context)
