@@ -32,4 +32,12 @@ func (*BlogUserApi) Add(c *gin.Context) {
 	response.Complete(nil, err, c)
 }
 
-func (BlogUserApi) Query(c *gin.Context)
+// 更新用户
+func (BlogUserApi) Update(c *gin.Context) {
+	var updateDto dto.BlogUserUpdateDto
+	c.ShouldBind(&updateDto)
+
+	err := userService.Update(updateDto)
+
+	response.Complete(nil, err, c)
+}
