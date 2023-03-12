@@ -11,7 +11,7 @@ func InitAdminRouters(routerGroup *gin.RouterGroup) {
 	blogUser := routerGroup.Group("/blog/user")
 	{
 		blogUser.GET("query", blogUserApi.Query)
-		blogUser.POST("add", blogUserApi.Query)
+		blogUser.POST("add", blogUserApi.Add)
 		blogUser.POST("update", blogUserApi.Query)
 		blogUser.POST("delete", blogUserApi.Query)
 		blogUser.GET("detail", blogUserApi.Query)
