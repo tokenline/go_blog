@@ -15,3 +15,5 @@ func (BlogUserApi) Query(c *gin.Context) {
 		"message": "1231231",
 	})
 }
+
+func (BlogUserApi) Query(c *gin.Context)
