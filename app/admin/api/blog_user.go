@@ -33,3 +33,7 @@ func (BlogUserApi) Update(c *gin.Context) {
 	err := userService.Update(updateDto)
 	response.Complete(nil, err, c)
 }
+
+func (BlogUserApi) list(c *gin.Context) {
+
+}
