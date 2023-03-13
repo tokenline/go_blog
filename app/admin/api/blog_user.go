@@ -1,43 +1,35 @@
 package api
 
 import (
-	"errors"
+	"fmt"
 	"go-blog/app/admin/dto"
 	"go-blog/common/dto/response"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 type BlogUserApi struct{}
 
-func (b *BlogUserApi) Query(c *gin.Context) {
-
-	// c.JSON(http.StatusOK, gin.H{
-	// 	"message": "1231231",
-	// })
-	response.Complete(nil, errors.New("错误了"), c)
+func (BlogUserApi) Query(c *gin.Context) {
+	fmt.Println("kaishi yewuchu")
+	c.JSON(http.StatusOK, gin.H{
+		"message": "1231231",
+	})
 }
 
-// 添加用户
-func (b *BlogUserApi) Add(c *gin.Context) {
-	// 传入参数
+func (BlogUserApi) Add(c *gin.Context) {
 	var addDto dto.BlogUserAddDto
-	// 请求参数赋值到结构体中
-	c.ShouldBindJSON(&addDto)
+	c.ShouldBind(&addDto)
 
-	// 业务处理（service）
 	err := userService.Add(addDto)
-
-	// 返回结果
 	response.Complete(nil, err, c)
 }
 
-// 更新用户
-func (b *BlogUserApi) Update(c *gin.Context) {
+func (BlogUserApi) Update(c *gin.Context) {
 	var updateDto dto.BlogUserUpdateDto
 	c.ShouldBind(&updateDto)
 
 	err := userService.Update(updateDto)
-
 	response.Complete(nil, err, c)
 }
