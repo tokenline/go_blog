@@ -30,7 +30,7 @@ func (b *BlogUserService) Add(addDto dto.BlogUserAddDto) error {
 }
 
 // 更新用户信息
-func (*BlogUserService) Update(updateDto dto.BlogUserUpdateDto) error {
+func (b *BlogUserService) Update(updateDto dto.BlogUserUpdateDto) error {
 
 	var user = &model.BlogUser{}
 
