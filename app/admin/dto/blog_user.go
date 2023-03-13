@@ -22,3 +22,9 @@ type BlogUserUpdateDto struct {
 	Status   constant.UserStatus
 	Remark   string
 }
+
+// 删除应该只需要一个ID
+
+type BlogUserDeleteDto struct {
+	ID int
+}
