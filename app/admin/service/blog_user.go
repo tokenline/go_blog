@@ -9,7 +9,7 @@ import (
 type BlogUserService struct{}
 
 // 添加用户
-func (*BlogUserService) Add(addDto dto.BlogUserAddDto) error {
+func (b *BlogUserService) Add(addDto dto.BlogUserAddDto) error {
 
 	var user = &model.BlogUser{
 		Username: addDto.Username,
@@ -42,6 +42,15 @@ func (*BlogUserService) Update(updateDto dto.BlogUserUpdateDto) error {
 		"status":   updateDto.Status,
 		"remark":   updateDto.Remark,
 	}).Error
+
+	return err
+}
+
+// 删除
+func (b *BlogUserService) Delete(deleteDto dto.BlogUserDeleteDto) error {
+	var user = &model.BlogUser{}
+
+	err := global.DB.Model(&user).Delete(&user, deleteDto.ID).Error
 
 	return err
 }
