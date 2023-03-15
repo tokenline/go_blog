@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"go-blog/app/admin/dto"
 	"go-blog/common/global"
 	"go-blog/model"
@@ -52,5 +53,13 @@ func (b *BlogUserService) Delete(deleteDto dto.BlogUserDeleteDto) error {
 
 	err := global.DB.Model(&user).Delete(&user, deleteDto.ID).Error
 
+	return err
+}
+
+// 这里该返回什么？
+func (b *BlogUserService) List() error {
+	var users []model.BlogUser
+	err := global.DB.Model(&users).Where("status = ?", 0).Find(&users).Error
+	fmt.Println(users)
 	return err
 }
