@@ -34,6 +34,17 @@ func (BlogUserApi) Update(c *gin.Context) {
 	response.Complete(nil, err, c)
 }
 
-func (BlogUserApi) list(c *gin.Context) {
+// List这个API应该不用传入上下文？
+// 我尝试删除 *gin.Context结果rounter_admin.go中对应的调用List
+func (BlogUserApi) List(c *gin.Context) {
+	err := userService.List()
+	response.Complete(nil, err, nil)
+}
 
+func (BlogUserApi) Delete(c *gin.Context) {
+	var deleteDto dto.BlogUserDeleteDto
+	c.ShouldBind(&deleteDto)
+
+	err := userService.Delete(deleteDto)
+	response.Complete(nil, err, c)
 }
