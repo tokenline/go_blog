@@ -42,4 +42,15 @@ D.其余问题
 2.query接口需要返回怎样的query？根据ID返回对应的user在user表中的全部信息？
 
 
+### 3月15日 delete接口实现 list接口实现
 
+如果gorm模型包含一个gorm.deleted_at字段，调用Delete方法会自动使用软删除功能
+，不用造轮子。
+
+delete接口实现，测试通过。
+
+list接口大体上实现了不过存在两个问题：
+
+1.list接口应该传入什么参数？
+
+2.list的返回应该是什么格式？
