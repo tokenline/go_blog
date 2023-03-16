@@ -28,3 +28,8 @@ type BlogUserUpdateDto struct {
 type BlogUserDeleteDto struct {
 	ID int
 }
+
+// 这个应该就是一个ID吧？
+type BlogUserQueryDto struct {
+	ID int //用户ID
+}
