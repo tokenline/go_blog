@@ -1,10 +1,8 @@
 package api
 
 import (
-	"fmt"
 	"go-blog/app/admin/dto"
 	"go-blog/common/dto/response"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,10 +10,11 @@ import (
 type BlogUserApi struct{}
 
 func (BlogUserApi) Query(c *gin.Context) {
-	fmt.Println("kaishi yewuchu")
-	c.JSON(http.StatusOK, gin.H{
-		"message": "1231231",
-	})
+	var queryDto dto.BlogUserQueryDto
+	c.ShouldBind(&queryDto)
+
+	err := userService.Query(queryDto.ID)
+	response.Complete(nil, err, c)
 }
 
 func (BlogUserApi) Add(c *gin.Context) {
