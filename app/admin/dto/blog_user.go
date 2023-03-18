@@ -1,6 +1,14 @@
 package dto
 
-import "go-blog/constants"
+import (
+	"go-blog/common/dto/request"
+	"go-blog/constants"
+)
+
+// 这个应该就是一个ID吧？
+type BlogUserQuery struct {
+	request.PageQuery
+}
 
 type BlogUserAddDto struct {
 	Username string               //用户名
@@ -39,9 +47,4 @@ type BlogUserVo struct {
 // TODO:换公共Dto
 type BlogUserDeleteDto struct {
 	ID uint
-}
-
-// 这个应该就是一个ID吧？
-type BlogUserQueryDto struct {
-	ID uint //用户ID
 }

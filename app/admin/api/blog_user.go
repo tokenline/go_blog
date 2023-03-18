@@ -10,12 +10,13 @@ import (
 type BlogUserApi struct{}
 
 func (BlogUserApi) Query(c *gin.Context) {
-	var queryDto dto.BlogUserQueryDto
-	c.ShouldBind(&queryDto)
 
-	// TODO :等分页
-	// err := userService.Query(queryDto.ID)
-	response.Complete(nil, nil, c)
+	var query dto.BlogUserQuery
+	c.ShouldBind(&query)
+
+	list, totalCount, err := userService.Query(query)
+
+	response.Complete(response.PageResult{List: list, TotalCount: int(totalCount)}, err, c)
 }
 
 func (BlogUserApi) Add(c *gin.Context) {
@@ -34,9 +35,8 @@ func (BlogUserApi) Update(c *gin.Context) {
 	response.Complete(nil, err, c)
 }
 
-func (BlogUserApi) List(c *gin.Context) {
-	vos, err := userService.List()
-	response.Complete(vos, err, c)
+func (BlogUserApi) Detail() {
+
 }
 
 func (BlogUserApi) Delete(c *gin.Context) {
@@ -45,4 +45,9 @@ func (BlogUserApi) Delete(c *gin.Context) {
 
 	err := userService.Delete(deleteDto)
 	response.Complete(nil, err, c)
+}
+
+func (BlogUserApi) List(c *gin.Context) {
+	vos, err := userService.List()
+	response.Complete(vos, err, c)
 }

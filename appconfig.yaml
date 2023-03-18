@@ -1,5 +1,5 @@
 # 数据库配置
 database :
-  default : "root@tcp(127.0.0.1:3306)/go_blog?charset=utf8mb4&parseTime=True&loc=Local"
+  default : "root:123456@tcp(127.0.0.1:3306)/go_blog?charset=utf8mb4&parseTime=True&loc=Local"
 
 # 3月13日进行本地调试切换至本地数据库无root密码

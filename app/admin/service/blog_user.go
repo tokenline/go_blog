@@ -9,6 +9,26 @@ import (
 
 type BlogUserService struct{}
 
+// QueryByID
+func (b *BlogUserService) Query(query dto.BlogUserQuery) (list []dto.BlogUserVo, totalCount int64, err error) {
+
+	db := global.DB.Model(&model.BlogUser{})
+
+	offset := (query.PageNum - 1) * query.PageSize
+
+	//查询数据
+	err = db.Offset(offset).Limit(query.PageSize).Find(&list).Error
+
+	if err != nil {
+		return nil, 0, err
+	}
+
+	//总条数
+	db.Count(&totalCount)
+
+	return list, totalCount, err
+}
+
 // 添加用户
 func (b *BlogUserService) Add(addDto dto.BlogUserAddDto) error {
 
@@ -60,12 +80,4 @@ func (b *BlogUserService) List() (vos []dto.BlogUserVo, err error) {
 
 	err = global.DB.Model(&model.BlogUser{}).Where("status = ?", constants.UserStatusEnable).Find(&vos).Error
 	return vos, err
-}
-
-// QueryByID
-func (b *BlogUserService) Query(ID int) error {
-	var user []model.BlogUser
-	err := global.DB.Model(&user).Where("ID = ?", ID).Find(&user).Error
-
-	return err
 }
