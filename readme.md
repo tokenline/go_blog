@@ -67,4 +67,30 @@ list接口大体上实现了不过存在两个问题：
 
 gorm.Find()这个方法和Java中的方法不一样，它不用穿出它的处理结果，这大概是用指针的好处。
 
+1、使用公共IdInfoDto
 
+2、已有常量的字段，要使用常量来查询
+
+3、Update
+
+(1)Update返回error
+
+(2)update优化
+
+4、包名constant改为constants
+
+5、List
+
+(1)要有放回数据
+
+(2)定义返回结构体vo
+
+6、Query
+
+Gorm数据库字段相关使用小写
+
+7、Detail也是返回Vo
+
+8、方法顺序
+
+TODO：待实现的功能

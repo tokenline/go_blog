@@ -1,4 +1,4 @@
-package constant
+package constants
 
 // 用户性别
 type UserGender int

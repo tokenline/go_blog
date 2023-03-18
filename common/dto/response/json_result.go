@@ -27,10 +27,10 @@ func Result(code int, success bool, data interface{}, message string, c *gin.Con
 func Complete(data interface{}, err error, c *gin.Context) {
 	if err != nil {
 		// 失败
-		FailWithDetail(nil, err.Error(), c)
+		FailWithDetail(data, err.Error(), c)
 	} else {
 		// 成功
-		SuccessWithDetail(nil, "请求成功", c)
+		SuccessWithDetail(data, "请求成功", c)
 	}
 }
 

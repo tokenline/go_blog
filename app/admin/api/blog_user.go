@@ -13,8 +13,9 @@ func (BlogUserApi) Query(c *gin.Context) {
 	var queryDto dto.BlogUserQueryDto
 	c.ShouldBind(&queryDto)
 
-	err := userService.Query(queryDto.ID)
-	response.Complete(nil, err, c)
+	// TODO :等分页
+	// err := userService.Query(queryDto.ID)
+	response.Complete(nil, nil, c)
 }
 
 func (BlogUserApi) Add(c *gin.Context) {
@@ -33,11 +34,9 @@ func (BlogUserApi) Update(c *gin.Context) {
 	response.Complete(nil, err, c)
 }
 
-// List这个API应该不用传入上下文？
-// 我尝试删除 *gin.Context结果rounter_admin.go中对应的调用List
 func (BlogUserApi) List(c *gin.Context) {
-	err := userService.List()
-	response.Complete(nil, err, nil)
+	vos, err := userService.List()
+	response.Complete(vos, err, c)
 }
 
 func (BlogUserApi) Delete(c *gin.Context) {
