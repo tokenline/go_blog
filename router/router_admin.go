@@ -18,4 +18,10 @@ func InitAdminRouters(routerGroup *gin.RouterGroup) {
 		blogUser.GET("list", blogUserApi.List)
 	}
 
+	var blogAuthApi = api.BlogAuthApi{}
+	blogAuth := routerGroup.Group("/blog/auth")
+	{
+		blogAuth.POST("login", blogAuthApi.Login)
+	}
+
 }
