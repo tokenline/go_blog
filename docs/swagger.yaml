@@ -1,4 +1,112 @@
+definitions:
+  constants.UserGender:
+    enum:
+    - 0
+    - 1
+    - 2
+    type: integer
+    x-enum-comments:
+      UserGenderFemale: 女
+      UserGenderMale: 男
+      UserGenderNone: 未知
+    x-enum-varnames:
+    - UserGenderNone
+    - UserGenderMale
+    - UserGenderFemale
+  constants.UserStatus:
+    enum:
+    - 0
+    - 1
+    type: integer
+    x-enum-comments:
+      UserStatusDisable: 禁用
+      UserStatusEnable: 启用
+    x-enum-varnames:
+    - UserStatusEnable
+    - UserStatusDisable
+  dto.BlogUserVo:
+    properties:
+      gender:
+        allOf:
+        - $ref: '#/definitions/constants.UserGender'
+        description: 性别
+      id:
+        description: 用户ID
+        type: integer
+      mail:
+        description: 邮箱地址
+        type: string
+      nickname:
+        description: 昵称
+        type: string
+      phone:
+        description: 电话号码
+        type: string
+      remark:
+        description: 备注
+        type: string
+      status:
+        allOf:
+        - $ref: '#/definitions/constants.UserStatus'
+        description: 状态
+      username:
+        description: 用户名
+        type: string
+    type: object
+  response.JsonResult:
+    properties:
+      code:
+        description: 状态码（业务层状态）
+        type: integer
+      data:
+        description: 数据
+      message:
+        description: 消息
+        type: string
+      success:
+        description: 是否成功
+        type: boolean
+    type: object
+  response.PageResult:
+    properties:
+      list:
+        description: 数据
+      totalCount:
+        description: 总条数
+        type: integer
+    type: object
 info:
   contact: {}
-paths: {}
+paths:
+  /blog/user/query:
+    get:
+      parameters:
+      - description: 页码
+        in: query
+        name: pageNum
+        type: integer
+      - description: 每页数量
+        in: query
+        name: pageSize
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.JsonResult'
+            - properties:
+                data:
+                  allOf:
+                  - $ref: '#/definitions/response.PageResult'
+                  - properties:
+                      list:
+                        items:
+                          $ref: '#/definitions/dto.BlogUserVo'
+                        type: array
+                    type: object
+              type: object
+      summary: 用户查询
+      tags:
+      - 用户
 swagger: "2.0"

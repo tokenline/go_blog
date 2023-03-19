@@ -9,6 +9,11 @@ import (
 
 type BlogUserApi struct{}
 
+// @Tags 用户
+// @Summary 用户查询
+// @Param data query dto.BlogUserQuery true "请求参数"
+// @Success 200 {object} response.JsonResult{data=response.PageResult{list=[]dto.BlogUserVo}}
+// @Router /blog/user/query [get]
 func (BlogUserApi) Query(c *gin.Context) {
 
 	var query dto.BlogUserQuery

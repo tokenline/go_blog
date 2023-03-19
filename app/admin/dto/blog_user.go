@@ -34,8 +34,8 @@ type BlogUserUpdateDto struct {
 // 删除应该只需要一个ID
 
 type BlogUserVo struct {
-	ID       uint                 //用户ID
-	Username string               //用户名
+	ID       uint                 `json:"id"`       //用户ID
+	Username string               `json:"username"` //用户名
 	Nickname string               //昵称
 	Mail     string               //邮箱地址
 	Phone    string               //电话号码

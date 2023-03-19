@@ -7,10 +7,10 @@ import (
 )
 
 type JsonResult struct {
-	Code    int         //状态码（业务层状态）
-	Success bool        //是否成功
-	Data    interface{} //数据
-	Message string      //消息
+	Code    int         `json:"code"`    //状态码（业务层状态）
+	Success bool        `json:"success"` //是否成功
+	Data    interface{} `json:"data"`    //数据
+	Message string      `json:"message"` //消息
 }
 
 func Result(code int, success bool, data interface{}, message string, c *gin.Context) {

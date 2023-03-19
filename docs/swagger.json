@@ -3,5 +3,175 @@
     "info": {
         "contact": {}
     },
-    "paths": {}
+    "paths": {
+        "/blog/user/query": {
+            "get": {
+                "tags": [
+                    "用户"
+                ],
+                "summary": "用户查询",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "pageNum",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页数量",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.JsonResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/response.PageResult"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "list": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/dto.BlogUserVo"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "constants.UserGender": {
+            "type": "integer",
+            "enum": [
+                0,
+                1,
+                2
+            ],
+            "x-enum-comments": {
+                "UserGenderFemale": "女",
+                "UserGenderMale": "男",
+                "UserGenderNone": "未知"
+            },
+            "x-enum-varnames": [
+                "UserGenderNone",
+                "UserGenderMale",
+                "UserGenderFemale"
+            ]
+        },
+        "constants.UserStatus": {
+            "type": "integer",
+            "enum": [
+                0,
+                1
+            ],
+            "x-enum-comments": {
+                "UserStatusDisable": "禁用",
+                "UserStatusEnable": "启用"
+            },
+            "x-enum-varnames": [
+                "UserStatusEnable",
+                "UserStatusDisable"
+            ]
+        },
+        "dto.BlogUserVo": {
+            "type": "object",
+            "properties": {
+                "gender": {
+                    "description": "性别",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/constants.UserGender"
+                        }
+                    ]
+                },
+                "id": {
+                    "description": "用户ID",
+                    "type": "integer"
+                },
+                "mail": {
+                    "description": "邮箱地址",
+                    "type": "string"
+                },
+                "nickname": {
+                    "description": "昵称",
+                    "type": "string"
+                },
+                "phone": {
+                    "description": "电话号码",
+                    "type": "string"
+                },
+                "remark": {
+                    "description": "备注",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "状态",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/constants.UserStatus"
+                        }
+                    ]
+                },
+                "username": {
+                    "description": "用户名",
+                    "type": "string"
+                }
+            }
+        },
+        "response.JsonResult": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "状态码（业务层状态）",
+                    "type": "integer"
+                },
+                "data": {
+                    "description": "数据"
+                },
+                "message": {
+                    "description": "消息",
+                    "type": "string"
+                },
+                "success": {
+                    "description": "是否成功",
+                    "type": "boolean"
+                }
+            }
+        },
+        "response.PageResult": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "description": "数据"
+                },
+                "totalCount": {
+                    "description": "总条数",
+                    "type": "integer"
+                }
+            }
+        }
+    }
 }
