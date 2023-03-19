@@ -2,6 +2,7 @@ package service
 
 import (
 	"go-blog/app/admin/dto"
+	"go-blog/common/dto/request"
 	"go-blog/common/global"
 	"go-blog/constants"
 	"go-blog/model"
@@ -68,7 +69,7 @@ func (b *BlogUserService) Update(updateDto dto.BlogUserUpdateDto) error {
 }
 
 // 删除
-func (b *BlogUserService) Delete(deleteDto dto.BlogUserDeleteDto) error {
+func (b *BlogUserService) Delete(deleteDto request.IdInfoDto) error {
 	var user = &model.BlogUser{}
 
 	err := global.DB.Model(&user).Delete(&user, deleteDto.ID).Error
