@@ -15,6 +15,33 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/blog/auth/login": {
+            "post": {
+                "tags": [
+                    "授权"
+                ],
+                "summary": "登录",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.LoginDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.JsonResult"
+                        }
+                    }
+                }
+            }
+        },
         "/blog/user/add": {
             "post": {
                 "tags": [
@@ -335,6 +362,9 @@ const docTemplate = `{
                     "type": "string"
                 }
             }
+        },
+        "dto.LoginDto": {
+            "type": "object"
         },
         "request.IdInfoDto": {
             "type": "object",

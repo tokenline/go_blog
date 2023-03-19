@@ -100,6 +100,8 @@ definitions:
         description: 用户名
         type: string
     type: object
+  dto.LoginDto:
+    type: object
   request.IdInfoDto:
     properties:
       id:
@@ -130,6 +132,23 @@ definitions:
 info:
   contact: {}
 paths:
+  /blog/auth/login:
+    post:
+      parameters:
+      - description: 请求参数
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.LoginDto'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.JsonResult'
+      summary: 登录
+      tags:
+      - 授权
   /blog/user/add:
     post:
       parameters:
