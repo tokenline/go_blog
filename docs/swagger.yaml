@@ -24,6 +24,53 @@ definitions:
     x-enum-varnames:
     - UserStatusEnable
     - UserStatusDisable
+  dto.BlogUserAddDto:
+    properties:
+      gender:
+        allOf:
+        - $ref: '#/definitions/constants.UserGender'
+        description: 性别
+      mail:
+        description: 邮箱地址
+        type: string
+      nickname:
+        description: 昵称
+        type: string
+      password:
+        description: 密码
+        type: string
+      phone:
+        description: 电话号码
+        type: string
+      remark:
+        description: 备注
+        type: string
+      status:
+        allOf:
+        - $ref: '#/definitions/constants.UserStatus'
+        description: 状态
+      username:
+        description: 用户名
+        type: string
+    type: object
+  dto.BlogUserUpdateDto:
+    properties:
+      gender:
+        $ref: '#/definitions/constants.UserGender'
+      id:
+        description: 用户ID  想一想
+        type: integer
+      mail:
+        type: string
+      nickname:
+        type: string
+      phone:
+        type: string
+      remark:
+        type: string
+      status:
+        $ref: '#/definitions/constants.UserStatus'
+    type: object
   dto.BlogUserVo:
     properties:
       gender:
@@ -53,6 +100,11 @@ definitions:
         description: 用户名
         type: string
     type: object
+  request.IdInfoDto:
+    properties:
+      id:
+        type: integer
+    type: object
   response.JsonResult:
     properties:
       code:
@@ -78,6 +130,57 @@ definitions:
 info:
   contact: {}
 paths:
+  /blog/user/add:
+    post:
+      parameters:
+      - description: 请求参数
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.BlogUserAddDto'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.JsonResult'
+      summary: 增加用户
+      tags:
+      - 用户
+  /blog/user/delete:
+    post:
+      parameters:
+      - description: 请求参数
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdInfoDto'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.JsonResult'
+      summary: 软删除指定用户
+      tags:
+      - 用户
+  /blog/user/list:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.JsonResult'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.BlogUserVo'
+                  type: array
+              type: object
+      summary: 返回1个全部状态为启用用户的数组
+      tags:
+      - 用户
   /blog/user/query:
     get:
       parameters:
@@ -107,6 +210,23 @@ paths:
                     type: object
               type: object
       summary: 用户查询
+      tags:
+      - 用户
+  /blog/user/update:
+    post:
+      parameters:
+      - description: 请求参数
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/dto.BlogUserUpdateDto'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.JsonResult'
+      summary: 更新用户信息
       tags:
       - 用户
 swagger: "2.0"

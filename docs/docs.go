@@ -15,6 +15,91 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/blog/user/add": {
+            "post": {
+                "tags": [
+                    "用户"
+                ],
+                "summary": "增加用户",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.BlogUserAddDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.JsonResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/blog/user/delete": {
+            "post": {
+                "tags": [
+                    "用户"
+                ],
+                "summary": "软删除指定用户",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdInfoDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.JsonResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/blog/user/list": {
+            "get": {
+                "tags": [
+                    "用户"
+                ],
+                "summary": "返回1个全部状态为启用用户的数组",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.JsonResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/dto.BlogUserVo"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/blog/user/query": {
             "get": {
                 "tags": [
@@ -71,6 +156,33 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/blog/user/update": {
+            "post": {
+                "tags": [
+                    "用户"
+                ],
+                "summary": "更新用户信息",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.BlogUserUpdateDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.JsonResult"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -106,6 +218,78 @@ const docTemplate = `{
                 "UserStatusEnable",
                 "UserStatusDisable"
             ]
+        },
+        "dto.BlogUserAddDto": {
+            "type": "object",
+            "properties": {
+                "gender": {
+                    "description": "性别",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/constants.UserGender"
+                        }
+                    ]
+                },
+                "mail": {
+                    "description": "邮箱地址",
+                    "type": "string"
+                },
+                "nickname": {
+                    "description": "昵称",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "密码",
+                    "type": "string"
+                },
+                "phone": {
+                    "description": "电话号码",
+                    "type": "string"
+                },
+                "remark": {
+                    "description": "备注",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "状态",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/constants.UserStatus"
+                        }
+                    ]
+                },
+                "username": {
+                    "description": "用户名",
+                    "type": "string"
+                }
+            }
+        },
+        "dto.BlogUserUpdateDto": {
+            "type": "object",
+            "properties": {
+                "gender": {
+                    "$ref": "#/definitions/constants.UserGender"
+                },
+                "id": {
+                    "description": "用户ID  想一想",
+                    "type": "integer"
+                },
+                "mail": {
+                    "type": "string"
+                },
+                "nickname": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/constants.UserStatus"
+                }
+            }
         },
         "dto.BlogUserVo": {
             "type": "object",
@@ -149,6 +333,14 @@ const docTemplate = `{
                 "username": {
                     "description": "用户名",
                     "type": "string"
+                }
+            }
+        },
+        "request.IdInfoDto": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
                 }
             }
         },
