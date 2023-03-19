@@ -13,7 +13,7 @@ type BlogAuthService struct{}
 func (*BlogAuthService) Login(login dto.LoginDto) error {
 	//获取user信息
 	var user model.BlogUser
-	err := global.DB.Model(&user).Where("username = ?", login.Username).Find(&user).Error
+	err := global.DB.Where("username = ?", login.Username).First(&user).Error
 
 	//验证用户是否存在
 	if err != nil {

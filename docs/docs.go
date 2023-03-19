@@ -364,7 +364,15 @@ const docTemplate = `{
             }
         },
         "dto.LoginDto": {
-            "type": "object"
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
         },
         "request.IdInfoDto": {
             "type": "object",

@@ -101,6 +101,11 @@ definitions:
         type: string
     type: object
   dto.LoginDto:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
     type: object
   request.IdInfoDto:
     properties:
