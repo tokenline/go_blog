@@ -33,6 +33,9 @@ func (b *BlogUserService) Query(query dto.BlogUserQuery) (list []dto.BlogUserVo,
 // 添加用户
 func (b *BlogUserService) Add(addDto dto.BlogUserAddDto) error {
 
+	// var temp string
+	// utils.Encryption.Md5(addDto.Password)
+
 	var user = &model.BlogUser{
 		Username: addDto.Username,
 		Nickname: addDto.Nickname,
