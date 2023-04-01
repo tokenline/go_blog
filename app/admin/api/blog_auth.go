@@ -20,8 +20,8 @@ func (*BlogAuthApi) Login(c *gin.Context) {
 	c.ShouldBind(&login)
 
 	//service处理
-	err := authService.Login(login)
-	response.Complete(nil, err, c)
+	token, err := authService.Login(login)
 
 	//返回
+	response.Complete(token, err, c)
 }
