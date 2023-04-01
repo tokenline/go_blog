@@ -2,11 +2,35 @@ package router
 
 import (
 	"go-blog/app/admin/api"
+	"go-blog/middleware"
 
 	"github.com/gin-gonic/gin"
 )
 
 func InitAdminRouters(routerGroup *gin.RouterGroup) {
+
+	// 公开路由
+	InitAdminPublicRouters(routerGroup)
+
+	// 授权路由
+	InitAdminPrivateRouters(routerGroup)
+
+}
+
+// 公开路由
+func InitAdminPublicRouters(routerGroup *gin.RouterGroup) {
+	var blogAuthApi = api.BlogAuthApi{}
+	blogAuth := routerGroup.Group("/blog/auth")
+	{
+		blogAuth.POST("login", blogAuthApi.Login)
+	}
+}
+
+// 授权路由
+func InitAdminPrivateRouters(routerGroup *gin.RouterGroup) {
+	// 授权
+	routerGroup.Use(middleware.JwtAuth())
+
 	var blogUserApi = api.BlogUserApi{}
 	blogUser := routerGroup.Group("/blog/user")
 	{
@@ -38,12 +62,6 @@ func InitAdminRouters(routerGroup *gin.RouterGroup) {
 		blogCategory.POST("delete", blogCategoryApi.Delete)
 		//blogCategory.GET("detail", blogCategoryApi.Query) 这里需要吗？
 		blogCategory.GET("list", blogCategoryApi.List)
-	}
-
-	var blogAuthApi = api.BlogAuthApi{}
-	blogAuth := routerGroup.Group("/blog/auth")
-	{
-		blogAuth.POST("login", blogAuthApi.Login)
 	}
 
 }

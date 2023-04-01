@@ -31,3 +31,14 @@ func (j *JwtUtils) GenerateToken(claim UserAuthClaims, expireTime time.Time) (st
 
 	return token.SignedString(secreKey)
 }
+
+// 解析token
+func (j *JwtUtils) ParseToken(tokenStr string) (*jwt.Token, error) {
+	var secreKey = []byte("RRInjFYM5H6CwHwCTKGVclICroaEbRo9")
+
+	// 解析token
+	var claim UserAuthClaims
+	return jwt.ParseWithClaims(tokenStr, &claim, func(t *jwt.Token) (interface{}, error) {
+		return secreKey, nil
+	})
+}

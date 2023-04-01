@@ -38,6 +38,10 @@ func FailWithDetail(data interface{}, message string, c *gin.Context) {
 	Result(200, false, data, message, c)
 }
 
+func FailWithCode(code int, message string, c *gin.Context) {
+	Result(code, false, nil, message, c)
+}
+
 func SuccessWithDetail(data interface{}, message string, c *gin.Context) {
 	Result(200, true, data, message, c)
 }
